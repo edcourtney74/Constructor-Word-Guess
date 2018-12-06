@@ -1,0 +1,27 @@
+{
+  "name": "constructor-word-guess",
+  "version": "1.0.0",
+  "description": "A command-line word guess game using constructors",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edcourtney74/Constructor-Word-Guess.git"
+  },
+  "keywords": [
+    "npm",
+    "word",
+    "guess"
+  ],
+  "author": "Ed Courtney",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edcourtney74/Constructor-Word-Guess/issues"
+  },
+  "homepage": "https://github.com/edcourtney74/Constructor-Word-Guess#readme",
+  "dependencies": {
+    "inquirer": "^6.2.1"
+  }
+}
