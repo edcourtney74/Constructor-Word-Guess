@@ -21,18 +21,15 @@ var Letter = function(puzzleLetter) {
     this.displayLetter = function() {
         // If the user guess was found correct in the checkGuess function, return the correct letter
         if (this.correctGuess) {
-            // NEED TO WORK ON RETURNING CORRECT VALUES
-            console.log(this.puzzleLetter);
+            return this.puzzleLetter;
+            // console.log(this.puzzleLetter);
         
             // If the user guess was incorrect, return an underscore
         } else {
-            console.log("_");
+            return "_";
         }
     }
 }
 
-// TESTING AREA
-
-var test = new Letter("w");
-test.checkGuess("w");
-test.displayLetter();
+// Export Letter
+module.exports = Letter;
