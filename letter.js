@@ -5,7 +5,6 @@ var Letter = function(puzzleLetter) {
     // Variable that stores whether this letter has been guessed yet;
     // Start with false value
     this.correctlyGuessed = false;
-    // console.log("Puzzle letter: " + this.puzzleLetter);
 
     // Function to display letter or underscore - using toString so that Javascript will
     // call the function automatically when casting the object to a string
@@ -22,16 +21,10 @@ var Letter = function(puzzleLetter) {
     
     // Function to check whether the user's guess is the same as the correct letter
     this.checkGuess = function(userGuess) {
-        // TEST
-        console.log("Check guess is running!");
         if (userGuess === this.puzzleLetter) {
             // If userGuess matches puzzleLetter, set correctlyGuessed value to true
             this.correctlyGuessed = true;            
-        
-        } else {
-            // If the letters don't match, set correctlyGuessed to false;
-            this.correctlyGuessed = false;
-        }
+        }        
     }
 }
 
