@@ -1,29 +1,48 @@
+// GLOBAL VARIABLES===========================================================
 // Store inquirer npm in a variable
 var inquirer = require("inquirer");
 
 // Access info from word.js
-var word = require("./word")
+var Word = require("./word")
 
-// Array of possible puzzles
-var puzzleList = ["cardinals", "tigers"];
+// Array of possible words
+var wordList = ["cardinals", "tigers"];
 
-// Current puzzle variable, will be set in randomPuzzle function
-var currentPuzzle;
+// Current puzzle variable, will be set in selectWord function
+var randomWord;
 
-// Function to pick random puzzle
-function randomPuzzle() {
-    // Selects a random number, looks through the puzzleList array and assigns the corresponding puzzle to a variable
-    var currentPuzzle = puzzleList[Math.floor(Math.random() * 2)];
-    console.log("Puzzle selected: " + currentPuzzle);
+// GLOBAL FUNCTIONS========================================================
+// Function to pick random word
+function createPuzzle() {
+    // Selects a random number, looks through the wordList array and assigns the corresponding word to a variable
+    randomWord = wordList[Math.floor(Math.random() * 2)];
+    console.log("Puzzle selected: " + randomWord);
+
+    // Converts word selected into array of individual letters
+    var letterArray = randomWord.split("");
+    console.log("Array before anything is done to it:" + letterArray);
+
+    // Uses Word constructor to create letter objects
+    var wordToGuess = new Word(letterArray);
+    
+    // Run displayLetter function to initially show the puzzle
+    wordToGuess.displayPuzzle(letterArray);
 }
 
-//   * Prompts the user for each guess and keeps track of the user's remaining guesses
-
-
+// Function to ask for user to guess a letter, then check that letter with the puzzle and display the puzzle again
 
 
 // MAIN PROCESS========================================================================
-randomPuzzle();
+// Run createPuzzle function to set the puzzle for the game
+createPuzzle();
 
 
+
+
+
+// Use Word constructor to set up word guess for new variable
+
+// Display puzzle in terminal
+// wordToGuess.startCheckGuess("r");
+// TEST - console logging letters array to make sure they are objects
 
