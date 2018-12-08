@@ -17,25 +17,43 @@ var userGuess;
 // Variable that holds array of letters that make up the puzzle's word
 var letterArray;
 
+// Variable to hold number of remaining guesses
+var guessesRemaining = 7;
+
+// Variable to hold correct guesses, which will indicate when puzzle is solved
+var guessesCorrect = 0;
+
+// Variable to hold words removed after played
+var removedWords = [];
+
+// Variable to hold randomWord selected
+var randomWord;
+
+// Variable to hold array of letters already guessed
+var guessedLetters = [];
+
 // GLOBAL FUNCTIONS========================================================
 // Function to pick random word
 function createPuzzle() {
     // Selects a random number, looks through the wordList array and assigns the corresponding word to a variable
-    var randomWord = wordList[Math.floor(Math.random() * 2)];
-    console.log("Puzzle selected: " + randomWord);
+    randomWord = wordList[Math.floor(Math.random() * wordList.length)];
 
     // Converts word selected into array of individual letters
     letterArray = randomWord.split("");
 
     // Uses Word constructor to create word object
     wordToGuess = new Word(letterArray);
-    
+
     // Run createLetterObjects to add letter objects to array
     wordToGuess.createLetterObjects(letterArray);
-    console.log("wordToGuess properties: " + wordToGuess.allLetters);
-    
-    // Run displayLetter function to initially show the puzzle
-    // wordToGuess.displayPuzzle(letterArray);
+
+    // Run displayLetter function to initially show the puzzle and guesses remaining
+    wordToGuess.displayPuzzle(letterArray);
+    console.log("Guesses remaining: " + guessesRemaining);
+
+    // Start game
+    getUserGuess();
+
 }
 
 // Function to ask for user to guess a letter, then check that letter with the puzzle and display the puzzle again
@@ -47,35 +65,134 @@ function getUserGuess() {
             name: "userInput",
             message: "Please choose a letter"
         }
-    // After user input received... 
-    ]).then(function(answer) {
-        // Store letter into a variable
-        userGuess = answer.userInput;
-        
-        // Check userGuess with letters in wordToGuess
-        wordToGuess.startCheckGuess(userGuess);
+        // After user input received... 
+    ]).then(function (answer) {
 
-        // After checking for matches with userGuess, display wordToGuess, updated with any matching letters;
-        wordToGuess.displayPuzzle(letterArray);
+        // Make letter lowercase, store into a variable
+        userGuess = answer.userInput.toLowerCase();
 
-        getUserGuess();
+        // Validate that user entered a letter
+        if (!/^[a-z]/.test(userGuess)) {
+            // If a letter wasn't entered, display a message to user
+            console.log("Please only select a letter");
 
-    });     
+            // Ask again for user input
+            getUserGuess();
+            
+            // Validate that user hasn't picked letter yet
+        } else if (guessedLetters.includes(userGuess)) {
+            // If the letter was already picked, display a message to user
+            console.log("You already picked that letter. Please choose a different one.");
+
+            // Ask again for user input
+            getUserGuess();                       
+            
+        } else {
+
+            // Store userGuess into an array so user can't pick it again
+            guessedLetters.push(userGuess);
+            
+            // Check userGuess with letters in wordToGuess
+            wordToGuess.startCheckGuess(userGuess);
+
+            // After checking for matches with userGuess, display wordToGuess, updated with any matching letters;
+            wordToGuess.displayPuzzle(letterArray);
+
+            // Check user guess against local array of letters
+            if (letterArray.indexOf(userGuess) < 0) {
+                // If the letter is not in the array, decrease the remaining guesses
+                guessesRemaining--;
+
+                // If guessesRemaining = 0...
+                if (guessesRemaining === 0) {
+                    // Display message to the user
+                    console.log("I'm sorry. You're out of guesses.")
+
+                    // Display complete puzzle
+                    console.log("The answer: " + letterArray.join(""));
+
+                    // Ask user whether to play again
+                    newGame();
+
+                    // If guesses are remaining...
+                } else {
+
+                    // Alert user in terminal how many guesses they have left
+                    console.log("Sorry. That letter was incorrect. \nGuesses remaining: " + guessesRemaining);
+
+                    // Ask user for another letter
+                    getUserGuess();
+                }
+
+            } else {
+                // If the letter is in the array, see how many times it is in there and add to guessesCorrect variable for each instance
+                for (i = 0; i < letterArray.length; i++) {
+                    if (userGuess === letterArray[i]) {
+                        guessesCorrect++;
+                    }
+                }
+
+                // Check to see if guessesCorrect equals letterArray.length
+                if (guessesCorrect === letterArray.length) {
+                    // Congratulate the user
+                    console.log("Congratulations!! You solved the puzzled.")
+
+                    // Ask user whether to play again
+                    newGame();
+                }
+
+                else {
+                    // If not, display remaining guesses
+                    console.log("Guesses remaining: " + guessesRemaining);
+
+                    // Ask the user for another guess
+                    getUserGuess();
+                }
+            }
+        }
+    });
 };
 
+// Function to start a new game
+function newGame() {
+    // Use inquirer to ask the user for a letter
+    inquirer.prompt([
+        {
+            type: "confirm",
+            name: "newgame",
+            message: "Do you want to play again?"
+        }
+        // After user input received... 
+    ]).then(function (answer) {
+        if (answer.newgame === true) {
+            // Remove last word from word list so it doesn't come up again
+            removedWords = wordList.indexOf(randomWord);
+            if (removedWords > -1) {
+                wordList.splice(removedWords, 1);
+            }
+
+            // Check to make sure there are puzzles left to play
+            if (wordList.length > 0) {
+
+                // Reset variables
+                guessesRemaining = 7;
+                guessesCorrect = 0;
+
+                // Start game
+                createPuzzle();
+
+                // If no puzzles are left to play, let the user know
+            } else {
+                console.log("Sorry. There are no new puzzles available.");
+            }
+
+        } else {
+            // Display goodbye message in terminal
+            console.log("Thanks for playing. If you change your mind, just type 'node index'.");
+        }
+    })
+}
 
 // MAIN PROCESS========================================================================
-// Run createPuzzle function to set the puzzle for the game
+// Run createPuzzle function to set the puzzle for the game and start gameplay
 createPuzzle();
-getUserGuess();
-
-
-
-
-
-// Use Word constructor to set up word guess for new variable
-
-// Display puzzle in terminal
-// wordToGuess.startCheckGuess("r");
-// TEST - console logging letters array to make sure they are objects
-

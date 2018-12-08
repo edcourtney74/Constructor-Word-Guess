@@ -36,7 +36,6 @@ var Word = function(letterArray) {
     this.startCheckGuess = function(userGuess) {
         // For loop to go over each letter object in the this.allLetters array
         for (i = 0; i < this.allLetters.length; i++) {
-
             this.allLetters[i].checkGuess(userGuess);
         }        
     }

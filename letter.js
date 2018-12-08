@@ -24,7 +24,7 @@ var Letter = function(puzzleLetter) {
         if (userGuess === this.puzzleLetter) {
             // If userGuess matches puzzleLetter, set correctlyGuessed value to true
             this.correctlyGuessed = true;            
-        }        
+        }
     }
 }
 
