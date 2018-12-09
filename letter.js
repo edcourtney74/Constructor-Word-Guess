@@ -27,12 +27,5 @@ var Letter = function(puzzleLetter) {
         }
     }
 }
-
 // Export Letter
 module.exports = Letter;
-
-// TEST 
-// var testLetter = new Letter("w");
-// userGuess = "x"
-// testLetter.checkGuess(userGuess)
-// console.log("Is test correct?" + testLetter.correctlyGuessed);

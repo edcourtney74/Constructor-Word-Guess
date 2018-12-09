@@ -1,5 +1,5 @@
 // GLOBAL VARIABLES===========================================================
-// Store inquirer npm in a variable
+// Store inquirer, chalk npm in a variable
 var inquirer = require("inquirer");
 
 // Access info from word.js
@@ -49,11 +49,10 @@ function createPuzzle() {
 
     // Run displayLetter function to initially show the puzzle and guesses remaining
     wordToGuess.displayPuzzle(letterArray);
-    console.log("Guesses remaining: " + guessesRemaining);
+    console.log("\nGuesses remaining: " + guessesRemaining + "\n");
 
     // Start game
     getUserGuess();
-
 }
 
 // Function to ask for user to guess a letter, then check that letter with the puzzle and display the puzzle again
@@ -74,7 +73,7 @@ function getUserGuess() {
         // Validate that user entered a letter
         if (!/^[a-z]/.test(userGuess)) {
             // If a letter wasn't entered, display a message to user
-            console.log("Please only select a letter");
+            console.log("Please only select a letter\n");
 
             // Ask again for user input
             getUserGuess();
@@ -82,7 +81,7 @@ function getUserGuess() {
             // Validate that user hasn't picked letter yet
         } else if (guessedLetters.includes(userGuess)) {
             // If the letter was already picked, display a message to user
-            console.log("You already picked that letter. Please choose a different one.");
+            console.log("You already picked that letter. Please choose a different one.\n");
 
             // Ask again for user input
             getUserGuess();                       
@@ -106,10 +105,10 @@ function getUserGuess() {
                 // If guessesRemaining = 0...
                 if (guessesRemaining === 0) {
                     // Display message to the user
-                    console.log("I'm sorry. You're out of guesses.")
+                    console.log("I'm sorry. You're out of guesses.\n")
 
                     // Display complete puzzle
-                    console.log("The answer: " + letterArray.join(""));
+                    console.log("The answer: " + letterArray.join("") + "\n");
 
                     // Ask user whether to play again
                     newGame();
@@ -118,7 +117,7 @@ function getUserGuess() {
                 } else {
 
                     // Alert user in terminal how many guesses they have left
-                    console.log("Sorry. That letter was incorrect. \nGuesses remaining: " + guessesRemaining);
+                    console.log("Sorry. That letter was incorrect. \n\nGuesses remaining: " + guessesRemaining + ";  Letters already chosen: " + guessedLetters.join(" ") + "\n");
 
                     // Ask user for another letter
                     getUserGuess();
@@ -135,7 +134,7 @@ function getUserGuess() {
                 // Check to see if guessesCorrect equals letterArray.length
                 if (guessesCorrect === letterArray.length) {
                     // Congratulate the user
-                    console.log("Congratulations!! You solved the puzzled.")
+                    console.log("Congratulations!! You solved the puzzled.\n")
 
                     // Ask user whether to play again
                     newGame();
@@ -143,7 +142,7 @@ function getUserGuess() {
 
                 else {
                     // If not, display remaining guesses
-                    console.log("Guesses remaining: " + guessesRemaining);
+                    console.log("\nGuesses remaining: " + guessesRemaining + ";  Letters already chosen: " + guessedLetters.join(" ") + "\n");
 
                     // Ask the user for another guess
                     getUserGuess();
@@ -177,22 +176,23 @@ function newGame() {
                 // Reset variables
                 guessesRemaining = 7;
                 guessesCorrect = 0;
+                guessedLetters = [];
 
                 // Start game
                 createPuzzle();
 
                 // If no puzzles are left to play, let the user know
             } else {
-                console.log("Sorry. There are no new puzzles available.");
+                console.log("Sorry. There are no new puzzles available.\n");
             }
 
         } else {
             // Display goodbye message in terminal
-            console.log("Thanks for playing. If you change your mind, just type 'node index'.");
+            console.log("Thanks for playing. If you change your mind, just type 'node index'.\n");
         }
     })
 }
 
-// MAIN PROCESS========================================================================
+// START FIRST GAME===================================================================
 // Run createPuzzle function to set the puzzle for the game and start gameplay
 createPuzzle();

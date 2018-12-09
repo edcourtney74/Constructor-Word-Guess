@@ -1,3 +1,6 @@
+// Store chalk npm in a variable
+var chalk = require("chalk");
+
 // Import info from letter.js
 var Letter = require("./letter");
 
@@ -29,7 +32,7 @@ var Word = function(letterArray) {
 
         // When all letters are constructed, print puzzle to the console, 
         // using .join to eliminate commas and add a space between letters/blanks
-        console.log(this.allLetters.join(" "));        
+        console.log(chalk.bold("\n" + this.allLetters.join(" ")) + "\n");        
     }    
 
     // Function to check if the user's guess matches any of the letters in the array
@@ -40,5 +43,4 @@ var Word = function(letterArray) {
         }        
     }
 }
-
 module.exports = Word;
