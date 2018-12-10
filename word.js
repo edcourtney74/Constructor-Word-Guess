@@ -15,12 +15,12 @@ var Word = function(letterArray) {
             
             // Create newLetter object from Letter constructor
             var newLetter = new Letter(letterArray[i]);
-            
+               
             // Push new letter object into allLetters array
-            this.allLetters.push(newLetter);
+            this.allLetters.push(newLetter);          
         }
     }
-
+    
     // Function to show string in console, with either letters or blanks 
     this.displayPuzzle = function() {
         // Create for loop to go through each letter object in allLetters
@@ -43,4 +43,5 @@ var Word = function(letterArray) {
         }        
     }
 }
+
 module.exports = Word;

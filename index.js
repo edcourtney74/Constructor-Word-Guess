@@ -6,7 +6,7 @@ var inquirer = require("inquirer");
 var Word = require("./word")
 
 // Array of possible words
-var wordList = ["Cardinals", "Tigers", "Two words"];
+var wordList = ["George Washington", "John Adams", "Thomas Jefferson", "James Madison", "James Monroe", "John Quincy Adams", "Andrew Jackson", "Martin Van Buren", "William Henry Harrison", "John Tyler", "James Polk", "Zachary Taylor", "Millard Fillmore", "Franklin Pierce", "James Buchanan", "Abraham Lincoln", "Andrew Johnson", "Ulysses Grant", "Rutherford Hayes", "James Garfield", "Chester Arthur", "Grover Cleveland", "Benjamin Harrison", "Grover Cleveland", "William McKinley", "Theodore Roosevelt", "William Taft", "Woodrow Wilson", "Warren Harding", "Calvin Coolidge", "Herbert Hoover", "Franklin Roosevelt", "Harry Truman", "Dwight Eisenhower", "John Kennedy", "Lyndon Johnson", "Richard Nixon", "Gerald Ford", "Jimmy Carter", "Ronald Reagan", "George H. W. Bush", "Bill Clinton", "George W. Bush", "Barack Obama", "Donald Trump"];
 
 // Current puzzle variable, will be set in selectWord function
 var wordToGuess;
@@ -40,13 +40,20 @@ function createPuzzle() {
 
     // Converts word selected into array of individual letters
     letterArray = randomWord.split("");
-    console.log("letterArray: " + letterArray);
 
     // Uses Word constructor to create word object
     wordToGuess = new Word(letterArray);
 
     // Run createLetterObjects to add letter objects to array
     wordToGuess.createLetterObjects(letterArray);
+
+    // Check to see any of the new letter objects in the allLetters array were not true letters (for example, a space, period, etc.0)
+    for (let i = 0; i < wordToGuess.allLetters.length; i++) {
+        if (!/^[a-zA-Z]/.test(wordToGuess.allLetters[i].puzzleLetter)) {
+        // If it's not a letter, add to the guessesCorrect variable that tracks when the puzzle has been solved
+        guessesCorrect ++;
+        }
+    }
 
     // Run displayLetter function to initially show the puzzle and guesses remaining
     wordToGuess.displayPuzzle(letterArray);

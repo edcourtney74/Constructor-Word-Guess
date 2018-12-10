@@ -9,6 +9,10 @@ var Letter = function(puzzleLetter) {
     // Function to display letter or underscore - using toString so that Javascript will
     // call the function automatically when casting the object to a string
     this.toString = function() {
+        if (!/^[a-zA-Z]/.test(puzzleLetter)) {
+            return this.puzzleLetter;
+        }
+        
         // If this letter has already been correctly guessed, show the letter
         if (this.correctlyGuessed) {
             return this.puzzleLetter;
