@@ -1,6 +1,6 @@
 # Constructor-Word-Guess
 A command-line word guess game using object constructors.
-**<strong>Theme: U.S. Presidents**
+**Theme: U.S. Presidents**
 
 ## How to Play
   * Type "node index" to begin the game.
