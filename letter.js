@@ -21,7 +21,7 @@ var Letter = function(puzzleLetter) {
     
     // Function to check whether the user's guess is the same as the correct letter
     this.checkGuess = function(userGuess) {
-        if (userGuess === this.puzzleLetter) {
+        if ((userGuess === this.puzzleLetter) || (userGuess === this.puzzleLetter.toLowerCase())) {
             // If userGuess matches puzzleLetter, set correctlyGuessed value to true
             this.correctlyGuessed = true;            
         }

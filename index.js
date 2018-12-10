@@ -6,7 +6,7 @@ var inquirer = require("inquirer");
 var Word = require("./word")
 
 // Array of possible words
-var wordList = ["cardinals", "tigers"];
+var wordList = ["Cardinals", "Tigers", "Two words"];
 
 // Current puzzle variable, will be set in selectWord function
 var wordToGuess;
@@ -40,6 +40,7 @@ function createPuzzle() {
 
     // Converts word selected into array of individual letters
     letterArray = randomWord.split("");
+    console.log("letterArray: " + letterArray);
 
     // Uses Word constructor to create word object
     wordToGuess = new Word(letterArray);
@@ -96,9 +97,9 @@ function getUserGuess() {
 
             // After checking for matches with userGuess, display wordToGuess, updated with any matching letters;
             wordToGuess.displayPuzzle(letterArray);
-
-            // Check user guess against local array of letters
-            if (letterArray.indexOf(userGuess) < 0) {
+            
+            // Check user guess against local array of letters, including uppercase for any uppercase in puzzle
+            if ((letterArray.indexOf(userGuess) < 0) && (letterArray.indexOf(userGuess.toUpperCase()) < 0)) {
                 // If the letter is not in the array, decrease the remaining guesses
                 guessesRemaining--;
 
@@ -124,9 +125,9 @@ function getUserGuess() {
                 }
 
             } else {
-                // If the letter is in the array, see how many times it is in there and add to guessesCorrect variable for each instance
+                // If the letter is in the array, see how many times it is in there and add to guessesCorrect variable for each instance, accounting for any uppercase letters as well
                 for (i = 0; i < letterArray.length; i++) {
-                    if (userGuess === letterArray[i]) {
+                    if ((userGuess === letterArray[i]) || (userGuess.toUpperCase() === letterArray[i])) {
                         guessesCorrect++;
                     }
                 }
