@@ -1,5 +1,6 @@
 # Constructor-Word-Guess
 A command-line word guess game using object constructors.
+
 **Theme: U.S. Presidents**
 
 ## How to Play
