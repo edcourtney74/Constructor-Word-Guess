@@ -125,7 +125,7 @@ function getUserGuess() {
                 } else {
 
                     // Alert user in terminal how many guesses they have left
-                    console.log("Sorry. That letter was incorrect. \n\nGuesses remaining: " + guessesRemaining + ";  Letters already chosen: " + guessedLetters.join(" ") + "\n");
+                    console.log("Sorry. That letter was incorrect. \n\nGuesses remaining: " + guessesRemaining + "  |  Letters already chosen: " + guessedLetters.join(" ") + "\n");
 
                     // Ask user for another letter
                     getUserGuess();
@@ -150,7 +150,7 @@ function getUserGuess() {
 
                 else {
                     // If not, display remaining guesses
-                    console.log("\nGuesses remaining: " + guessesRemaining + ";  Letters already chosen: " + guessedLetters.join(" ") + "\n");
+                    console.log("\nGuesses remaining: " + guessesRemaining + "  |  Letters already chosen: " + guessedLetters.join(" ") + "\n");
 
                     // Ask the user for another guess
                     getUserGuess();
